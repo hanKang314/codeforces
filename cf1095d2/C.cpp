@@ -1,47 +1,56 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-static bool can_make_mex(int k, const vector<int>& a) {
-    multiset<int> s(a.begin(), a.end());
-
-    for (int v = k - 1; v >= 0; --v) {
-        auto it = s.lower_bound(v);
-
-        if (it != s.end() && *it == v) {
-            s.erase(it);
-        } else {
-            it = s.lower_bound(2 * v + 1);
-            if (it == s.end()) return false;
-            s.erase(it);
-        }
-    }
-    return true;
-}
+#define ll long long
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int t;
-    cin >> t;
-    while (t--) {
+    int T;
+    cin >> T;
+
+    while (T--) {
         int n;
         cin >> n;
-        vector<int> a(n);
-        for (int i = 0; i < n; ++i) cin >> a[i];
 
-        int lo = 0, hi = n, mexwf = 0;
-        while (lo <= hi) {
-            int mid = (lo + hi) / 2;
-            if (can_make_mex(mid, a)) {
-                mexwf = mid;
-                lo = mid + 1;
-            } else {
-                hi = mid - 1;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) cin >> a[i];
+
+        multiset<int> ms(a.begin(), a.end());
+
+        int l = 0, r = n + 1;
+        while (l < r) {
+            int md = (l + r) / 2;
+
+            bool is = 1;
+            vector<int> removed;
+
+            for (int i = md - 1; i >= 0; i--) {
+                if (ms.count(i)) {
+                    removed.push_back(i);
+                    ms.erase(ms.find(i));
+                    continue;
+                } else {
+                    int x = *ms.rbegin();
+                    if (x < 2*i + 1) {
+                        is = 0;
+                        break;
+                    }
+                    removed.push_back(x);
+                    ms.erase(ms.find(x));
+                }
             }
+
+            for (auto& z : removed) ms.insert(z);
+
+            if (is) l = md + 1;
+            else r = md;
         }
 
-        cout << mexwf << '\n';
+        --l;
+
+        cout << l << '\n';
     }
+
     return 0;
 }
