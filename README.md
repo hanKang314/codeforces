@@ -1,3 +1,3 @@
 # Upsolving Codeforces Problems
 
-Some of my codes could include the editorial's implementations(especially for hard problems).
+Some of these could include the editorial's implementations(especially for hard problems).
