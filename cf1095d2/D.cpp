@@ -18,10 +18,10 @@ int main() {
             else even.push_back(z);
         }
 
-        int even_min = 1e9;
-        int even_max = -1e9;
-        int odd_min = 1e9;
-        int odd_max = -1e9;
+        int even_min = 200001;
+        int even_max = 0;
+        int odd_min = 200001;
+        int odd_max = 0;
 
         if (!even.empty()) {
             for (auto& z : even) {
@@ -44,7 +44,7 @@ int main() {
 
             for (int i = 1; i < even.size(); i++) {
                 if (mx > even[i]) {
-                    if (odd_min > odd[i] && odd_max < mx) {
+                    if (odd_min > even[i] && odd_max < mx) {
                         is = 0;
                         break;
                     }
