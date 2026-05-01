@@ -1,0 +1,6 @@
+{
+  "code-runner.saveFileBeforeRun": true,
+  "code-runner.executorMap": {
+    "cpp": "cmd /c \"cd /d $dir && g++ $fileName -o $fileNameWithoutExt.exe && $fileNameWithoutExt.exe < input.txt\""
+  }
+}
